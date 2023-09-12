@@ -8,4 +8,6 @@ br
 <br>
 
 <h1>Storing data in form.txt file</h1>
-![form - Notepad 12-09-2023 21_22_08](https://github.com/mtg718/Dance-Academy-Website/assets/135738292/c1b9e093-71c5-41dd-b98e-d23f8d301450)
+<br>
+
+![form - Notepad 12-09-2023 21_22_08](https://github.com/mtg718/Dance-Academy-Website/assets/135738292/5eaca3ac-511f-4e3a-a82b-9e3b98cc9279)
