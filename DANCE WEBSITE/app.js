@@ -1,8 +1,22 @@
 const express=require('express')
 const path= require('path')
 const fs= require('fs')
+const { default: mongoose } = require('mongoose')
 const app=express()
 const port=80
+const bodyparser= require('body-parser')
+mongoose.connect('mongodb://localhost/contactDance', {useNewUrlParser:true});
+
+//Defining mongoose schema
+const contactSchema = new mongoose.Schema({
+  name: String,
+  phone: String,
+  address: String,
+  email: String,
+  desc: String,
+});
+
+var Contact= mongoose.model('Contact',contactSchema);
 
 //EXPRESS STUFF
 app.use(express.static('static'))//serving static files
@@ -24,30 +38,24 @@ app.get('/contact',(req,res)=>{
     res.status(200).render('contact.pug',params)
 
 })
-
 app.post('/contact',(req,res)=>{
-    name = req.body.name
-    phone = req.body.phone
-    email = req.body.email
-     address = req.body.address
-    desc = req.body. desc
-
-
-    // let dataToWrite=`The name of the client is ${name},${phone} years old, ${gender} , residing at ${address}.More about him/her: ${more}`
-    let dataToWrite=`Client Data will be-
-                     Name - ${name},
-                     Mobile No. - ${phone},
-                     Email-id - ${email},
-                     Address- ${address},
-                     Description - ${desc} `
-                     //sending the form data in a new file form.txt
-    fs.writeFileSync('form.txt',dataToWrite)
+       var myData = new Contact(req.body);
+       myData.save().then(()=>{
+       res.send("This item has been saved to the database")
+       }).catch(()=>{
+       res.status(400).send("item was not saved to the databse")
+    })
     
-      const params={'message':'Your form has been submitted successfully'}
-      res.status(200).render('index.pug',params)
+
+
 })
+
+
+
 
 //START THE SERVER
 app.listen(port,()=>{
     console.log(`The application is running on port ${port}`)
 })
+
+ 
